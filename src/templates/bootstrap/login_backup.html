@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="login-signup">
+        {% if user.is_authenticated %}
+        <div style="height: 300px;margin: 0 auto;">
+            <h2 align="center">Welcome, {{user}} you are now signed in</h2>
+        </div>
+        {% endif %}
+        {% if not user.is_authenticated %}
+        <form name="signup" method="post" onsubmit="return validate()">{% csrf_token %}
+            <ul class="left-form">
+                <h2>New Account:</h2>
+                <li>
+                    <input type="text" id="username" name="username" value="{{field.username}}" placeholder="Username" onkeypress="Verify()"/>
+                </li>
+                
+                <li>
+                    <input type="text" id="email" name="email" value="{{field.emailaddress}}" placeholder="Email Address" onkeypress="Verify()"/>
+                </li>
+                <div><small id="email_error"></small></div><br>
+                <li>
+                    <input type="password" name="password" value="{{field.password}}" placeholder="Password" onkeypress="Verify()"/>
+                </li>
+                <div><small id="password_error"></small></div><br>
+                <li>
+                    <input type="password" name="confirmpassword" value="{{field.password}}" placeholder="Confirm Password" onkeypress="Verify()"/>
+                </li>
+                <div><small id="confirmpassword_error"></small></div><br>
+                <input type="submit" value="Create Account">
+            </ul>
+        </form>
+        <form method="post" action="{% url 'login' %}">{% csrf_token %}
+            {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p>Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</p>
+                {% else %}
+                    <p>Please login to see this page.</p>
+                {% endif %}
+            {% endif %}
+            <ul class="right-form" style="margin-top:-10px;">
+                <h2>Login:</h2>
+                <div>
+                    <li><input type="text" name="username" value="{{field.username}}"  placeholder="Username" required/></li>
+                    <li> <input type="password" name="password" value="{{field.password}}"  placeholder="Password" required/></li>
+                    <input type="submit" value="login" style="margin-left:5px;margin-top:10px;" >
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </ul>
+        </form>
+        {% endif %}
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

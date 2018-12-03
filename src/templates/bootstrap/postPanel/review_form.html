@@ -1,0 +1,68 @@
+{% extends 'bootstrap/postPanel/index.html' %}
+
+
+{% block content %}
+
+{% if user.is_staff %}
+<div class="container mt-2">
+	<h1 class="card-header bg-danger text-white">Create Review</h1>
+
+<form class="form-control" role="form" method="POST" enctype="multipart/form-data" style="background: #fcfcfc">{% csrf_token %}
+
+    <div class="form-group">
+        <h4>Title</h4>
+        <input class="form-control w-50" type="text" name="title" value="{{object.title}}" required>
+    </div>
+    <div class="form-group">
+        <h4>Upload Image</h4>
+        <input class="form-control w-50" type="file" name="imgs" value="{{imgs}}" {%if not reviews.imgs.url %} required {% endif %}>
+    </div>
+    <div class="form-group">
+        <h4>Upload Gameplay Image</h4>
+        <input class="form-control w-50"id="file" type="file" name="gameplay" value="{{reviews.gameplay.url}}" {%if not reviews.gameplay.url %} required {% endif %}>
+    </div>
+    <div class="form-group">
+        <h4>Content</h4>
+        <input class="form-control w-50" type="text" name="info" value="{% if form.info.initial %}{{form.info.initial}}{% endif %}" required>
+    </div>
+
+    <div class="form-group">
+        <h4>Article</h4>
+        <textarea class="form-control" rows="5" name="content" datatype="{{content}}" placeholder="Enter content with tags, eg..<h1>Hello</h1>" required>{% if form.content.initial %}{{form.content.initial}}{% endif %}</textarea>
+    </div>
+     
+      <div class="form-group">
+        <h4>Category</h4>
+        <input class="form-control w-50" type="text" name="category" value="{{object.category}}" required>
+      </div>
+ <div class="form-inline mt-3"><h4>CPU&nbsp;</h4></label>
+        <input class="form-control col-sm-12 col-md-4" type="text" name="cpu" value="{{object.cpu}}" required>
+        <label class="col-form-label ml-md-auto"> <h4>GPU&nbsp;</h4></label>
+        <input class="form-control col-sm-12 col-md-4 ml-md-4" type="text" name="gpu" value="{{object.gpu}}" required >
+      </div>
+
+
+ <div class="form-inline mt-3"><h4>RAM&nbsp;</h4></label>
+        <input class="form-control col-sm-12 col-md-4" type="text" name="ram" value="{{object.ram}}" required>
+        <label class="col-form-label ml-md-auto"> <h4>Hard Disk Space&nbsp;</h4></label>
+        <input class="form-control col-sm-12 col-md-4 ml-md-4" type="text" name="space" value="{{object.space}}" required >
+      </div>
+
+
+      <div class="form-group mt-3">
+        <h4>Platform</h4>
+        <input class="form-control w-50" type="text"  name="os" value="{{object.os}}" required>
+      </div>
+
+    <button class="btn btn-danger btn-sx" type="submit">Save</button>
+    <br>
+    <br>
+</form>
+</div>
+
+{% else %}
+<div style="height:360px;"><h1 style="text-align:center">You are not allowed to view this page</h1></div>
+{% endif %}
+<br>
+<br>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "bootstrap/base.html" %}
+<title>{% block title %}{{object.title}} | {{block.super}}{% endblock %}</title>
+{% block content %}
+<div class="container">
+
+    <img class="card-img" src="{{object.imgs.url}}" alt="Cover"><br><br />
+    <div class="bg-white">
+        <div class="mx-4 text-justify">
+        {% if user.is_staff and object.owner == user  %}
+            <form class="float-md-right" method="post" action="{% url 'delete' slug=object.slug %}" >{% csrf_token %}
+
+
+                    <button onclick="return confirm('Are you sure you want to delete this?')" id="delete" type="submit" class="float-md-right mt-0" style="background: transparent;border:none;cursor: pointer;"><i class="fa fa-trash"></i></button>
+                
+                    </form>
+
+                    <form class="float-md-right" method="post" action="{% url 'edit' slug=object.slug %}" >{% csrf_token %}
+
+
+                    <button id="edit" type="submit" class="float-md-right mt-0" style="background: transparent;border:none;cursor: pointer;"><i class="fa fa-edit"></i></button>
+                
+                    </form>
+        {% endif %}
+        <h1 class="text-center">{{object.title}} Review</h1><br>
+        <div class="text-center">by <b style="text-transform:capitalize;">{{object.owner}}</b> on {{object.timestamp|timesince}} ago</div>
+        <hr style="border-top: dotted 1px;">
+        {% autoescape off %}
+        {{object.content}}
+        <div class="col-12 align-content-center"><img style="margin-left: 12%" class="card-img w-75" src="{{object.gameplay.url}}" alt="Screenshot"></div><br>
+    {% endautoescape %}
+    <hr>
+    <h3>System Requirments</h3><br>
+    <table class="table">
+        <col width=200>
+        <col width=350>
+        <tbody>
+            <tr>
+                <td><b>CPU</b></td>
+                <td>{{object.cpu}}</td>
+            </tr>
+            <tr>
+                <td><b>GPU</b></td>
+                <td>{{object.gpu}}</td>
+            </tr>
+            <tr>
+                <td><b>RAM</b></td>
+                <td>{{object.ram}}</td>
+            </tr>
+            <tr>
+                <td><b>Disk Space</b></td>
+                <td>{{object.space}}</td>
+            </tr>
+            <tr>
+                <td><b>Operating System</b></td>
+                <td>{{object.os}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    {% if not user.is_authenticated %}
+        <div class="text-center"><form action="{% url 'register' %}?next={{ request.path }}"><button class="btn btn-danger btn-sx" type="submit">Login / Sign up to comment</button><br /></form></div>
+    {% endif %}
+    <h3>Comments</h3>
+    {% if user.is_authenticated %}
+        <br>
+        <div class="well">
+            <h4>Leave a Comment:</h4>
+            <form method="POST" action='.' enctype='multipart/form-data'> {% csrf_token %}
+                <div class="form-group">
+                    {{comment_form}}
+                </div>
+                <input type='submit' value='Post comment' class='btn btn-default'>
+            </form>
+        </div>
+    {% endif %}
+    <hr>
+    <div>
+        {% for comment in comments %}
+            <blockquote class="block" style="margin-left:2%;">
+                <p >{{ comment.comment_content }}</p>
+            <footer class="blockquote-footer">via <span class="text-danger">{{ comment.user }}</span> | {{ comment.timestamp|timesince }} ago
+
+
+                {% if user.is_authenticated and comment.user == user %}
+                <form class="float-right" method="post" action="{% url 'comment-delete' comment.pk %}" >{% csrf_token %}
+                    <button class="text-info" type="submit" style="background: transparent; border: 0;cursor: pointer;">delete</button>
+                </form>
+            {% endif %}
+
+            </footer>
+            
+        </blockquote>
+        <hr>
+    {% endfor %}
+</div>
+</div>
+</div>
+
+{% endblock %}

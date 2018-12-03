@@ -1,0 +1,118 @@
+{% extends "bootstrap/base.html" %}
+<title>{% block title %}{{ block.super }}  | A Gaming Review Website{% endblock %}</title>
+{% block content %}
+    <div class="container ">
+        {% if user.is_authenticated %}
+        <div class="jumbotron mt-5">
+        <div style="height: 300px;margin: 0 auto;">
+            <h2 align="center">Welcome, {{user}} you are now signed in</h2>
+        </div>
+    </div>
+    <br>
+
+        {% endif %}
+        {% if not user.is_authenticated %}
+<div class="container py-5">
+    <h2 class="text-center pb-2"></h2>
+    <div class="row">
+        <div class="col-lg-6 col-12 pb-3 ">
+            <div class="card h-100 " style="background-color: #34526E">
+                <div class="card-body">
+                    <h2 class="text-center mb-4 text-white">Login</h2>
+                    <form method="post" action="{% url 'login' %}" class="py-2" role="form" method="post" >{% csrf_token %}
+                        {% if form.errors %}
+                <p class="text-white">Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <p class="text-white">Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</p>
+                {% else %}
+                    <p class="text-white">Please login to see this page.</p>
+                {% endif %}
+            {% endif %}
+                        <div class="form-group">
+                            <label for="inputEmailForm" class="sr-only form-control-label">Email</label>
+                            <div class="mx-auto col-sm-10">
+                                <input type="text" class="form-control" name="username" value="{{field.username}}"  placeholder="Username" required required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordForm" class="sr-only form-control-label">Password</label>
+                            <div class="mx-auto col-sm-10">
+                                <input type="password" class="form-control" name="password" value="{{field.password}}"  placeholder="Password" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="mx-auto col-sm-10">
+                                <div class="checkbox form-control form-control-sm text-center small">
+                                    <label class="">
+                                        <input type="checkbox" class=""> remember me</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="mx-auto col-sm-10 pb-3 pt-2">
+                                <button type="submit" class="btn btn-outline-secondary btn-lg btn-block text-white">Sign-in</button>
+                                <input type="hidden" name="next" value="{{ next }}" />
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item px-3"><a href="" title="Twitter"><i class="display-3 ion-social-twitter-outline"></i></a>&nbsp; </li>
+                        <li class="list-inline-item px-3"><a href="" title="Google"><i class="display-3 ion-social-googleplus-outline"></i></a>&nbsp; </li>
+                        <li class="list-inline-item px-3"><a href="" title="Facebook"><i class="display-3 ion-social-facebook-outline"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 pb-3">
+            <div class="card h-100" style="background-color: #34526E">
+                <div class="card-body">
+                    <h2 class="text-center mb-4 text-white">Sign-up
+                    <img class="img-thumbnail" src="/static/images/signup.png" width="50" height="50" style="border:0"></h2>
+                    <form name="signup" method="post" role="form" onsubmit="return validate()">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="input2PasswordForm" class="sr-only form-control-label">username</label>
+                            <div class="mx-auto col-sm-10">
+                                <input type="text" class="form-control" id="username" name="username" value="{{field.username}}" placeholder="Username" onkeypress="Verify()" required="">
+                            </div>
+
+                        </div>
+                        <div class="mx-auto col-sm-10 text-white mb-1"><small id="name_error"></small></div>
+                        <div class="form-group">
+                            <label for="input2PasswordForm" class="sr-only form-control-label">email</label>
+                            <div class="mx-auto col-sm-10">
+                                <input type="text" class="form-control" id="email" name="email" value="{{field.emailaddress}}" placeholder="Email Address" onkeypress="Verify()" required="">
+                            </div>
+
+                        </div>
+                        <div class="mx-auto col-sm-10 text-white mb-1"><small id="email_error"></small></div>
+                        <div class="form-group">
+                            <label for="input2PasswordForm" class="sr-only form-control-label">password</label>
+                            <div class="mx-auto col-sm-10">
+                                <input type="password"  class="form-control" name="password" value="{{field.password}}" placeholder="Password" onkeypress="Verify()" required="">
+                            </div>
+                        </div>
+                        <div class="mx-auto col-sm-10 text-white mb-1"><small id="password_error"></small></div>
+                        <div class="form-group">
+                            <label for="input2Password2Form" class="sr-only form-control-label">verify</label>
+                            <div class="mx-auto col-sm-10">
+                                <input type="password" class="form-control"  name="confirmpassword" value="{{field.password}}" placeholder="Confirm Password" onkeypress="Verify()" required="">
+                            </div>
+                        </div>
+                        <div class="mx-auto col-sm-10 text-white mb-1"><small id="confirmpassword_error"></small></div>
+                        <div class="form-group">
+                            <div class="mx-auto col-sm-10 pb-3 pt-2">
+                                <button type="submit" class="btn btn-outline-secondary btn-lg btn-block text-white">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+    {% endblock %}
+

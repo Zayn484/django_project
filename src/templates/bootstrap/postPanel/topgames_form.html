@@ -1,0 +1,40 @@
+{% extends 'bootstrap/postPanel/index.html' %}
+
+
+{% block content %}
+
+{% if user.is_staff %}
+<div class="container mt-2">
+	<h1 class="card-header bg-danger text-white">Create Top Game</h1>
+
+<form class="form-control" role="form" method="POST" enctype="multipart/form-data" style="background: #fcfcfc">{% csrf_token %}
+
+    <div class="form-group">
+        <h4>Title</h4>
+        <input class="form-control w-50" type="text" name="title" value="{{object.title}}" required>
+    </div>
+    <div class="form-group">
+        <h4>Upload Image</h4>
+        <input class="form-control w-50" type="file" name="imgs" value="{{imgs}}" {%if not topgames.imgs.url %} required {% endif %}>
+    </div>
+    <div class="form-group">
+        <h4>Release Date</h4>
+        <input class="form-control w-50" type="text" name="release_date" value="{{object.release_date}}" required>
+    </div>
+    <div class="form-group">
+        <h4>Content</h4>
+        <input class="form-control w-50" type="text" name="content" value="{% if form.content.initial %}{{form.content.initial}}{% endif %}" required>
+    </div>
+
+    
+    <button class="btn btn-danger btn-sx" type="submit">Save</button>
+    <br>
+    <br>
+</form>
+</div>
+{% else %}
+<div style="height:360px;"><h1 style="text-align:center">You are not allowed to view this page</h1></div>
+{% endif %}
+<br>
+<br>
+{% endblock %}

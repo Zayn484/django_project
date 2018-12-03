@@ -1,0 +1,85 @@
+
+
+.my-links{
+	color: black;
+	font-size: 16px;
+}
+
+.news-links:hover {
+	text-decoration: none;
+	color: red;
+}
+
+
+
+.news-links:hover > h3 {
+	color: red;
+}
+
+
+.review-container{
+
+	border: 1px solid black;
+
+}
+
+.reviews{
+
+
+}
+.review-thumbnail{
+	background:transparent;
+	border:transparent;
+	min-height: 150px;
+}
+
+.review-info{
+	float:left;
+	height: 152px;
+	overflow: hidden;
+	background-color: #fcfcfc;
+}
+
+.review-links{
+	color: black;
+}
+
+
+.review-links:hover{
+	color: red;
+	text-decoration: none;
+}
+
+.top-games-thumbnail{
+	background: transparent;
+	border: transparent;
+	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.top-games-thumbnail:hover{
+	  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+
+.pagination-btn{
+	display: inline-block;
+    margin-right: 4px;
+    border-radius: 3px;
+    border: solid 1px #c0c0c0;
+    background: #f2f3f4;
+    box-shadow: inset 0px 1px 0px rgba(255,255,255, .8), 0px 1px 3px rgba(0,0,0, .1);
+    font-size: .890em;
+    font-weight: bold;
+    color: #717171;
+    text-shadow: 0px 1px 0px rgba(255,255,255, 1);
+}
+.pagination-btn:hover{
+	background: #fefefe;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FEFEFE), to(#f0f0f0));
+    background: -moz-linear-gradient(0% 0% 270deg,#FEFEFE, #f0f0f0);
+}
+
+
+

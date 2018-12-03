@@ -1,0 +1,16 @@
+
+<div class="col-sm-8 col-md-3 float-md-right mx-sm-auto">
+<h5 class="text-center text-dark">Top Upcoming Games</h5>
+<br>
+{% for obj in topgames_list %}
+<div class="top-games-imgs" >
+	<a  href="{% url 'topgames' %}#{{obj.title}}"> <img src="{{obj.imgs.url}}" class="card-img mt-1 top-games-thumbnail">
+</a>
+</div>
+{% endfor %}
+
+
+	<div class="text-center mt-2">
+    <a class="review-links" href="{% url 'topgames' %}" class="text-dark">See all upcoming games</a>
+</div>
+</div>

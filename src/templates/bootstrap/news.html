@@ -1,0 +1,120 @@
+{% extends "bootstrap/base.html" %}
+<title>{% block title %}{{ block.super }}  | A Gaming Review Website{% endblock %}</title>
+{% block content %}
+	<div class="container">
+		<div class="carousel slide" data-ride="carousel" id="indicators">
+			<ol class="carousel-indicators">
+				{% for indicator in '1234' %}
+					{% if forloop.first %}
+						<li data-target="#indicators" data-slide-to="0" class="active" style="cursor: pointer;"></li>
+					{% endif %}
+					<li data-target="#indicators" data-slide-to="{{indicator}}" style="cursor: pointer;"></li>
+				{% endfor %}
+			</ol>
+			<div class="carousel-inner">
+				{% for obj in slideshow_list %}
+					{% if forloop.first %}
+						<div class="carousel-item active" data-interval="">
+							<img class="d-block w-100" src="{{obj.imgs.url}}" alt="{{obj.title}}">
+						</div>
+					{% endif %}
+					{% if not forloop.first %}
+						<div class="carousel-item" data-interval="">
+							<img class="d-block w-100" src="{{obj.imgs.url}}" alt="{{obj.title}}">
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		
+		<div class="jumbotron" style="overflow: hidden;">
+	
+		<hr>
+		<div class="row">
+			<div class="col-sm-12 col-md-9 text-center">
+
+				<h3>Hot News</h3>
+
+
+			</div>
+
+	</div>
+	<br>
+
+
+	<div class="float-md-left col-md-9" >
+	{% for obj in news_list %}
+	
+	<div class="row mr-auto">
+
+		<div class=" col-sm-12 col-md-12 ">
+			<div id="{{obj.title}}" class="col-sm-10 col-md-10 mr-auto" >
+				<img src="{{obj.imgs.url}}" class="card-img news-thumbnail" alt="{{obj.title}}">
+			</div>
+
+			<div class="col-sm-10 col-md-10 mr-auto bg-white" style="">
+				<h2>{{obj.title}}&nbsp;&nbsp;<span class="bg-danger text-white text-uppercase" style="font-size: 14px;"></span>
+					{% if user.is_staff and obj.owner == user %}
+
+
+					<form class="float-md-right" method="post" action="{% url 'news-delete' slug=obj.slug %}" >{% csrf_token %}
+
+
+                	<button onclick="return confirm('Are you sure you want to delete this?')" id="delete" type="submit" class="float-md-right mt-0" style="background: transparent;border:none;cursor: pointer;"><i class="fa fa-trash"></i></button>
+            	
+            		</form>
+
+            		<form class="float-md-right" method="post" action="" >{% csrf_token %}
+
+
+                	<button id="edit" type="submit" class="float-md-right mt-0" style="background: transparent;border:none;cursor: pointer;"><i class="fa fa-edit"></i></button>
+            	
+            		</form>
+
+					{% endif %}
+				</h2>	
+
+				<small>{{obj.timestamp|timesince}} ago</small>
+				{% autoescape off %}
+				<p>{{obj.content}}</p>
+				{% endautoescape %}
+
+			</div>
+
+		</div>
+
+	</div>
+	
+	<br>
+	{% endfor %}
+
+	<div class="pagination col-sm-12">
+    <span class="step-links">
+        {% if news_list.has_previous %}
+            <a href="?page=1"><button  class="pagination-btn"> &laquo; first</button></a>
+            <a href="?page={{ news_list.previous_page_number }}"><button  class="pagination-btn">previous</button></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ news_list.number }} of {{ news_list.paginator.num_pages }}.
+        </span>
+
+        {% if news_list.has_next %}
+            <a href="{% url 'news' %}?page={{ news_list.next_page_number }}"><button  class="pagination-btn"> next</button></a>
+        <a href="{% url 'news' %}?page={{ news_list.paginator.num_pages }}"><button  class="pagination-btn">last &raquo;</button></a>
+        {% endif %}
+    </span>
+</div>
+
+<br>
+
+</div>
+
+
+
+{% include 'bootstrap/snippets/topgames_sidebar.html' %}
+
+
+</div>
+
+	{% endblock %}

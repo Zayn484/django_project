@@ -1,0 +1,22 @@
+
+{% extends "bootstrap/base.html" %}
+
+<title>{% block title %}Latest News | {{ block.super }}{% endblock %}</title>
+{% block content %}
+
+
+<div class="container">
+    <div class="jumbotron mt-5">
+    <h1 style="font-weight:bold">Account Issues</h1>
+    <h2 >How does signing in work now?</h2>
+    <p>Unlike before, you should now be signing in with your username and password, rather than your email address and password.</p>
+    <h2 >How do I change my username?</h2>
+    <p>We are currently not allowing users to change their usernames, though this is a feature we may consider in the future.</p>
+    <h2 >How do I change my password or email address?</h2>
+    <p>Visit our account details page, which will let you change either.</p>
+    <h2 >Help! I forgot my password and need it to be reset :(</h2>
+    <p>No problem! Simply visit our forgotten password page and you can get that all sorted out.</p>
+    <h2 >Not Answered Above?</h2>
+    <p>Sorry! In this case, please check out our forums, which are often full of useful help (or questionable wisdom), or reach out directly to our customer support team.</p>
+</div>
+{% endblock %}

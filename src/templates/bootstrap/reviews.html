@@ -1,0 +1,70 @@
+{% extends "bootstrap/base.html" %}
+<title>{% block title %}Latest News | {{ block.super }}{% endblock %}</title>
+{% block content %}
+		<div class="container mt-2">
+		<div class="row">
+			<div class="col-md-7">
+				<img class="img-fluid" src="/static/images/y0wS5ee.jpg" >
+			</div>
+
+			<div class="col-md-5 mt-sm-1">
+				<img class="img-fluid w-100 h-100 ml-md-0" src="/static/images/13132Q343C.jpg" >
+			</div>
+		</div>
+	</div>
+		<div class="container">
+		<div class="jumbotron" style="overflow: hidden;">
+	
+		<hr>
+		<div class="row">
+			<div class="col-sm-12 col-md-9 text-center">
+
+				<h3>Reviews</h3>
+
+
+			</div>
+
+	</div>
+	<br>
+
+
+	<div class="float-md-left col-sm-12 col-md-9" >
+		{% if review_list %}
+	{% for obj in review_list %}
+
+	{% include 'bootstrap/snippets/review_highlights.html' %}
+	
+	<br>
+	{% endfor %}
+	{% else %}
+	<h4>Sorry no results found</h4>
+	{% endif %}
+
+	<div class="pagination col-sm-12">
+    <span class="step-links">
+        {% if review_list.has_previous %}
+            <a href="?page=1"><button  class="pagination-btn"> &laquo; first</button></a>
+            <a href="?page={{ review_list.previous_page_number }}"><button  class="pagination-btn">previous</button></a>
+        {% endif %}
+
+        <span class="current">
+        	{% if results %}
+        	<h6>{{ results }} results found</h6> 
+        	{% if results > 20 %}
+            {{ review_list.number }} of {{ review_list.paginator.num_pages }}.
+            {% endif %}
+            {% endif %}
+        </span>
+
+        {% if review_list.has_next %}
+            <a href="{% url 'home' %}?page={{ review_list.next_page_number }}"><button  class="pagination-btn"> next</button></a>
+        <a href="{% url 'home' %}?page={{ review_list.paginator.num_pages }}"><button  class="pagination-btn">last &raquo;</button></a>
+        {% endif %}
+    </span>
+</div>
+
+<br>
+
+</div>
+</div>
+	{% endblock %}

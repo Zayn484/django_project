@@ -1,0 +1,91 @@
+{% extends "bootstrap/base.html" %}
+<title>{% block title %}{{ block.super }}  | A Gaming Review Website{% endblock %}</title>
+{% block content %}
+	<div class="container">
+		<div class="carousel slide" data-ride="carousel" id="indicators">
+			<ol class="carousel-indicators">
+				{% for indicator in '1234' %}
+					{% if forloop.first %}
+						<li data-target="#indicators" data-slide-to="0" class="active" style="cursor: pointer;"></li>
+					{% endif %}
+					<li data-target="#indicators" data-slide-to="{{indicator}}" style="cursor: pointer;"></li>
+				{% endfor %}
+			</ol>
+			<div class="carousel-inner">
+				{% for obj in slideshow_list %}
+					{% if forloop.first %}
+						<div class="carousel-item active" data-interval="">
+							<img class="d-block w-100" src="{{obj.imgs.url}}" alt="{{obj.title}}">
+						</div>
+					{% endif %}
+					{% if not forloop.first %}
+						<div class="carousel-item" data-interval="">
+							<img class="d-block w-100" src="{{obj.imgs.url}}" alt="{{obj.title}}">
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		
+		<div class="jumbotron" style="overflow: hidden;">
+		<div class="row">
+			{% for obj in news_list %}
+				<div class="col-sm-6 col-md-3">
+					<a href="{% url 'news' %}#{{obj.title}}" class="news-links">
+						<img src="{{obj.imgs.url}}" class="img-thumbnail" style="min-height: 150px;">
+						<h3 class="my-links">{{obj.info}}</h3>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-12 col-md-9 text-center">
+
+				<h3>Latest Reviews</h3>
+
+
+			</div>
+
+	</div>
+	<br>
+
+
+	<div class="float-md-left col-md-9" >
+	{% for obj in review_list %}
+	
+	{% include 'bootstrap/snippets/review_highlights.html' %}
+	
+	<br>
+	{% endfor %}
+
+	<div class="pagination col-sm-12">
+    <span class="step-links">
+        {% if review_list.has_previous %}
+            <a href="?page=1"><button  class="pagination-btn"> &laquo; first</button></a>
+            <a href="?page={{ review_list.previous_page_number }}"><button  class="pagination-btn">previous</button></a>
+
+        {% endif %}
+
+        <span class="current">
+   
+             Page {{ review_list.number }} of {{ review_list.paginator.num_pages }}.
+        </span>
+
+        {% if review_list.has_next %}
+            <a href="{% url 'home' %}?page={{ review_list.next_page_number }}"><button  class="pagination-btn"> next</button></a>
+        <a href="{% url 'home' %}?page={{ review_list.paginator.num_pages }}"><button  class="pagination-btn">last &raquo;</button></a>
+        <br>
+        {% endif %}
+    </span>
+</div>
+
+<br>
+
+</div>
+
+{% include 'bootstrap/snippets/topgames_sidebar.html' %}
+
+</div>
+
+	{% endblock %}

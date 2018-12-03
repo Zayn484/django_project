@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/favicons/manifest.json">
+    <link rel="mask-icon" href="/static/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+	<link type="text/css" rel="stylesheet" href="/static/main.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<title>{% block title %}Gaming Is Passion {% endblock %}</title>
+</head>
+
+<body>
+
+<div class="main_container">
+<div class="head"><label>Gaming is Passion</label></div>
+
+<div class="nav-container">
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    <a class="navbar-brand" href="{% url 'home' %}"><img class="logo" src="/static/images/Quanticlogo.png"></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav" id="nav">
+        <li><a href="{% url 'news' %}">News</a></li>
+        <li><a href="{% url 'reviews' %}">Reviews</a></li>
+            <li><a href="{% url 'pc' %}">PC</a></li>
+            <li><a href="{% url 'android' %}">Android</a></li>
+          {% if not user.is_authenticated %}
+          <li><a href="{% url 'register' %}">Login / Sign up</a></li>
+          {% endif %}
+          <li><a href="{% url 'support' %}">Support</a></li>
+          {% if user.is_authenticated %}
+          <li class="dropdown">
+          <a style="text-transform: uppercase;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> {{user}} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" id="dropdown">
+              {% if user.is_staff %}
+                <li><a href="{% url 'post-panel' %}">Post Panel</a></li>
+              {% endif %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </li>
+          {% endif %}
+      </ul>
+      <form method="GET" action="{% url 'search' %}" class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input class="form-control" name="q" value="{{request.GET.q}}" placeholder="Search..." type="text" style="min-width:300px;">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+</div>
+{% block content %}
+{% endblock %}
+
+</div>
+
+<div class="loading" style="display:none;">
+    Loading...
+  </div>
+
+<div class="footer"><br><img src="/static/images/Quanticlogo.png"><br> <br><a href="#">Advertise</a>&nbsp&nbsp&nbsp&nbsp&nbsp <a href="#"> Terms of use</a>&nbsp&nbsp&nbsp&nbsp <a href="#"Privacy Policy</a>&nbsp&nbsp&nbsp&nbsp <a href="#"> Help</a>&nbsp&nbsp&nbsp&nbsp <a href="#"> About</a></div>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="/static/jquery.min.js"></script>
+<!--<script src="http://malsup.github.io/min/jquery.cycle2.min.js"></script>-->
+<script src="/static/jquery.cycle2.min.js"></script>
+<script src="/static/jquery.sticky.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="/static/waypoints/lib/shortcuts/infinite.min.js"></script>
+
+<script>
+
+  	$(document).ready(function() {
+			// grab the initial top offset of the navigation
+		   	var stickyNavTop = $('.nav-container').offset().top;
+
+		   	// function that decides weather the navigation bar should have "fixed" css position or not.
+		   	var stickyNav = function(){
+			    var scrollTop = $(window).scrollTop(); // our current vertical position from the top
+
+			    // if scrolled more than the navigation, change its position to fixed to stick to top,
+			    // otherwise change it back to relative
+			    if (scrollTop > stickyNavTop) {
+			        $('.nav-container').addClass('sticky');
+			    } else {
+			        $('.nav-container').removeClass('sticky');
+			    }
+			};
+
+			stickyNav();
+			// and run it again every time you scroll
+			$(window).scroll(function() {
+				stickyNav();
+			});
+		});
+
+		$(document).ready(function(){
+        	$(".main_container").height(function(n,c){
+        	return c+50;
+        });
+    });
+
+    var infinite = new Waypoint.Infinite({
+      element: $('.boxes')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+
+
+$("form").submit(function() {
+  if (window.File && window.FileReader && window.FileList && window.Blob) {
+    var file = $('#file')[0].files[0];
+
+    if (file && file.size > 2 * 1024 * 1024 * 1024) {
+      alert("File " + file.name + " of type " + file.type + " is too big");
+      return false;
+    }
+  }
+});
+
+    var username = document.forms['signup']['username'];
+	var email = document.forms['signup']['email'];
+	var password = document.forms['signup']['password'];
+	var confirmpassword = document.forms['signup']['confirmpassword'];
+
+	var name_error = document.getElementById('name_error');
+	var email_error = document.getElementById('email_error');
+	var password_error = document.getElementById('password_error');
+	var confirmpassword_error = document.getElementById('confirmpassword_error');
+
+	username.addEventListener('focus', Verify, true);
+	email.addEventListener('focus', Verify, true);
+	password.addEventListener('focus', Verify, true);
+	confirmpassword.addEventListener('focus', Verify, true);
+
+    var alphaExp = /^[a-zA-Z]+$/;
+	var re = /^[a-zA-Z0-9._-]+@[gmailyahoohotmail]+\.[a-zA-Z]{2,6}$/;
+
+    function validate() {
+
+            var ok = true;
+
+			if (username.value == "") {
+				username.style.border = "1px solid red";
+				name_error.textContent = "You can't leave this empty"
+				ok = false;
+
+			}
+			if (!username.value.match(alphaExp) && username.value.length != 0){
+				username.style.border = "1px solid red";
+				name_error.textContent = "Please use a valid name";
+				ok = false;
+			}
+			if (email.value == ""){
+				email.style.border = "1px solid red";
+				email_error.textContent = "You can't leave this empty";
+				ok = false;
+			}
+
+			if (!email.value.match(re) && email.value.length !=0){
+				email.style.border = "1px solid red";
+				email_error.textContent = "Please enter a valid email";
+				ok = false;
+			}
+			if (password.value == ""){
+				password.style.border = "1px solid red";
+				password_error.textContent = "You can't leave this empty";
+				ok = false;
+			}
+			if (password.value.length < 6 && password.value !=""){
+				password.style.border = "1px solid red";
+				password_error.textContent = "Please use between 6 and 30 characters";
+				ok = false;
+
+			}
+			if (confirmpassword.value == ""){
+				confirmpassword.style.border = "1px solid red";
+				confirmpassword_error.textContent = "You can't leave this empty";
+				ok = false;
+			}
+			if (password.value != confirmpassword.value){
+				confirmpassword.style.border = "1px solid red";
+				confirmpassword_error.textContent = "These passwords don't match. Try again?"
+				ok = false;
+			}
+
+			return ok;
+
+    }
+
+    function Verify() {
+
+			if (username.value != "") {
+				username.style.borderColor = "";
+				name_error.textContent = "";
+
+			}
+
+			if (email.value != ""){
+				email.style.border = "";
+				email_error.textContent = "";
+
+			}
+			if (password.value != ""){
+				password.style.border = "";
+				password_error.textContent = "";
+
+			}
+			if (confirmpassword.value != ""){
+				confirmpassword.style.border = "";
+				confirmpassword_error.textContent = "";
+
+			}
+
+	}
+
+    $(document).on('click', '#delete', function(){
+    return confirm('Are you sure you want to delete this?');
+})
+
+
+</script>
+</body>
+</html>

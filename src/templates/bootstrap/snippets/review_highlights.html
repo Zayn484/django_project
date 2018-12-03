@@ -1,0 +1,38 @@
+<div class="row mr-auto">
+
+		<div class=" col-sm-12 col-md-12 reviews">
+			<div class="col-sm-5 col-md-3 mr-auto" style="float:left;" >
+				<a href="{% url 'gamereview' slug=obj.slug %}"><img src="{{obj.imgs.url}}" class="card-img review-thumbnail" alt="{{obj.title}}"></a> 
+			</div>
+
+			<div class="col-sm-7 col-md-9 mr-auto review-info" style="">
+				<a href="{% url 'gamereview' slug=obj.slug %}" class="review-links"> <h5>{{obj.title}}</a> &nbsp;&nbsp;<span class="bg-danger text-white text-uppercase" style="font-size: 14px;">&nbsp;{{obj.category}}&nbsp;</span>
+					{% if user.is_staff and obj.owner == user %}
+
+
+					<form class="float-md-right" method="post" action="{% url 'delete' slug=obj.slug %}" >{% csrf_token %}
+
+
+                	<button onclick="return confirm('Are you sure you want to delete this?')" id="delete" type="submit" class="float-md-right mt-0" style="background: transparent;border:none;cursor: pointer;"><i class="fa fa-trash"></i></button>
+            	
+            		</form>
+
+            		<form class="float-md-right" method="post" action="{% url 'edit' slug=obj.slug %}" >{% csrf_token %}
+
+
+                	<button id="edit" type="submit" class="float-md-right mt-0" style="background: transparent;border:none;cursor: pointer;"><i class="fa fa-edit"></i></button>
+            	
+            		</form>
+
+					{% endif %}
+				</h5>	
+
+				<small>{{obj.timestamp|timesince}} ago</small>
+				<p>{{obj.info}}</p>
+				
+
+			</div>
+
+		</div>
+
+	</div>

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Video Game Reviews | {{block.super}}{% endblock %}</title>
+
+{% block content %}
+<br>
+    <div style="margin: 0 auto;width:90%;overflow:hidden;">
+        <div style="float:left;width:60%;height:400px;"><img style="width:100%;height:100%;" src="/static/images/y0wS5ee.jpg" alt="Thumbnail"></div>
+        <div style="margin-left:10px;float:left;width:39%;height:400px;"><img style="width:100%;height:100%;" src="/static/images/13132Q343C.jpg" alt="Thumbnail"></div>
+	</div>
+    <br>
+	<div class="latest_reviews_label"><a href="/news">Reviews</a></div>
+	<br>
+
+	<div class="latest_reviews">
+
+
+        {% if review_list %}
+        {% for obj in review_list %}
+
+
+		<div class="boxes"><a href="/gamereview/{{obj.slug}}/"> <img src="{{obj.imgs.url}}" alt="Thumbnail"></a>
+            {% if user.is_staff and obj.owner == user %}
+            <form method="post" action="{% url 'edit' slug=obj.slug %}">{% csrf_token %}
+                <button id="edit" type="submit"><img src="/static/images/buttons/edit.png"> </button>
+            </form>
+            <form method="post" action="{% url 'delete' slug=obj.slug %}">{% csrf_token %}
+                <button onclick="return confirm('Are you sure you want to delete this?')" id="delete" type="submit"><img src="/static/images/buttons/delete.png"> </button>
+            </form>
+            {% endif %}
+            <h3><a href="/gamereview/{{obj.slug}}/"> {{obj.title}}</a></h3>
+			{% if obj.category == 'pc' %}
+			<div style="margin-left:25px;float:left;text-transform:uppercase;text-align:center;font-size:16px;width:25px;height:20px;background:red;color:white">{{obj.category}}</div>
+            <div style="display:inline-block;margin-left:10px;"><small>{{obj.timestamp}}</small></div>
+			{% elif obj.category == 'android' %}
+            <div style="margin-left:25px;float:left;text-transform:uppercase;text-align:center;font-size:16px;width:80px;height:20px;background:#08AF19;color:white">{{obj.category}}</div>
+            <div style="display:inline-block;margin-left:10px;"><small>{{obj.timestamp}}</small></div>
+			{% endif %}
+
+		<p>{{obj.info}}</p>
+		</div>
+		{% endfor %}
+        {% else %}
+        <h2>no results found</h2>
+        {% endif %}
+
+        <div class="pagination">
+    <span class="step-links">
+        {% if review_list.has_previous %}
+            <a href="?page=1"><button class="pagination-btn"> &laquo; first</button></a>
+            <a href="?page={{ review_list.previous_page_number }}"><button class="pagination-btn">previous</button></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ review_list.number }} of {{ review_list.paginator.num_pages }}.
+        </span>
+
+        {% if review_list.has_next %}
+        <a href="{% url 'reviews' %}?page={{ review_list.next_page_number }}"><button class="pagination-btn"> next</button></a>
+        <a href="{% url 'reviews' %}?page={{ review_list.paginator.num_pages }}"><button class="pagination-btn">last &raquo;</button></a>
+        {% endif %}
+    </span>
+</div>
+	</div>
+
+    <div class="sidebar" style="width:15%;">
+    <label><a href="{% url 'news' %}">Latest News</a></label>
+    {% for obj in news_list %}
+    <a href="{% url 'news' %}#{{obj.title}}"> <div style=";margin-top:1px;background-image: url({{obj.imgs.url}});"></div>
+    <label style="text-align:left;">{{obj.info}}</label>
+    </a><hr style="border-top: dotted 1px;">
+    {% endfor %}
+    </div>
+
+
+{% endblock %}

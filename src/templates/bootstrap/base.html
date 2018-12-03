@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/favicon-16x16.png">
+		<link rel="manifest" href="/static/images/favicons/manifest.json">
+		<link rel="mask-icon" href="/static/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="theme-color" content="#ffffff">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="/static/bootstrap4/css/bootstrap.min.css" / -->
+		<link type="text/css" rel="stylesheet" href="/static/mystyle.css" />
+		<link rel="stylesheet" type="text/css" href="/static/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+		
+		<title>{% block title %}Gaming is Passion{% endblock %}</title>
+	</head>
+	<body style="background-color: #eee">
+		<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark ">
+			<div class="container">
+				<a class="navbar-brand " href="{% url 'home' %}">
+					<img src="/static/images/Quanticlogo.png" width="40" height="40" class="d-inline-block align-top" alt="brand">
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapseLinks" aria-expanded="false" aria-label="Toggle Navigation">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse " id="navbarCollapseLinks">
+					<div class="col-9 ">
+						<ul class="navbar-nav mx-md-auto " >
+							<li class="nav-item ">
+								<a href="{% url 'news' %}" class="nav-link text-white ">News</a>
+							</li>
+							<li class="nav-item mx-md-auto">
+								<a href="{% url 'reviews' %}" class="nav-link text-white">Reviews</a>
+							</li>
+							<li class="nav-item mx-md-1">
+								<a href="{% url 'pc' %}" class="nav-link text-white">PC</a>
+							</li>
+							<li class="nav-item mx-md-auto">
+								<a href="{% url 'android' %}" class="nav-link text-white">Android</a>
+							</li>
+							
+							<li class="nav-item mx-md-auto">
+								<a href="{% url 'support' %}" class="nav-link text-white">Support</a>
+							</li>
+							{% if not user.is_authenticated %}
+								<li class="nav-item mx-md-auto">
+									<a href="{% url 'register' %}" class="nav-link text-white">
+									<i class="fa fa-sign-in-alt"></i>
+									&nbsp;Login / Sign up</a>
+								</li>
+							{% endif %}
+							{% if user.is_authenticated %}
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=";background: transparent;">
+									<i class="fa fa-user"></i>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="#" style="text-transform: capitalize;">{{user}}</a>
+										{% if user.is_staff %}
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item mx-auto" href="{% url 'post-panel' %}">User Post Panel</a>
+										{% endif %}
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i>&nbsp;Logout</a>
+									</div>
+								</div>
+							{% endif %}
+						</ul>
+					</div>
+					<form method="GET" action="{% url 'search' %}" class="form-inline ml-auto " >
+						<input name="q" value="{{request.GET.q}}" class="form-control ml-auto " type="search" placeholder="Search" aria-label="Search" >
+					</form>
+				</div>
+				
+			</div>
+		</nav>
+		<div class="container-fluid "  >
+			{% block content %}
+			{% endblock %}
+
+
+		</div>
+			<div class="row mt-4 bg-dark">
+				<div class="col-1 mx-auto">
+				<img class="mt-4" src="/static/images/Quanticlogo.png" width="50" height="50">
+			</div>
+			<div class="col-12 text-white mx-auto text-center mt-4">
+				<span class="mr-sm-3 mr-md-5">Advertise</span><span class="mr-sm-3 mr-md-5">Terms of use</span><span class="mr-sm-3 mr-md-5">Help</span><span class="mr-sm-3 mr-md-5">About</span>
+			</div>
+			<br><br><br>
+			</div>
+			
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		
+
+<!-- 
+<script src="/static/jquery.min.js"></script>
+<script src="/static/bootstrap4/js/bootstrap.min.js"></script>
+
+
+ -->
+
+		<script>
+
+
+
+	var username = document.forms['signup']['username'];
+	var email = document.forms['signup']['email'];
+	var password = document.forms['signup']['password'];
+	var confirmpassword = document.forms['signup']['confirmpassword'];
+
+	var name_error = document.getElementById('name_error');
+	var email_error = document.getElementById('email_error');
+	var password_error = document.getElementById('password_error');
+	var confirmpassword_error = document.getElementById('confirmpassword_error');
+
+	username.addEventListener('focus', Verify, true);
+	email.addEventListener('focus', Verify, true);
+	password.addEventListener('focus', Verify, true);
+	confirmpassword.addEventListener('focus', Verify, true);
+
+    var alphaExp = /^[a-zA-Z ]+$/;
+	var re = /^[a-zA-Z0-9._-]+@[gmailyahoohotmail]+\.[a-zA-Z]{2,6}$/;
+
+    function validate() {
+
+            var ok = true;
+
+			if (username.value == "") {
+				username.style.border = "1px solid red";
+				name_error.textContent = "You can't leave this empty"
+				ok = false;
+
+			}
+			if (!username.value.match(alphaExp) && username.value.length != 0){
+				username.style.border = "1px solid red";
+				name_error.textContent = "Please use a valid name";
+				ok = false;
+			}
+			if (email.value == ""){
+				email.style.border = "1px solid red";
+				email_error.textContent = "You can't leave this empty";
+				ok = false;
+			}
+
+			if (!email.value.match(re) && email.value.length !=0){
+				email.style.border = "1px solid red";
+				email_error.textContent = "Please enter a valid email";
+				ok = false;
+			}
+			if (password.value == ""){
+				password.style.border = "1px solid red";
+				password_error.textContent = "You can't leave this empty";
+				ok = false;
+			}
+			if (password.value.length < 6 && password.value !=""){
+				password.style.border = "1px solid red";
+				password_error.textContent = "Please use between 6 and 30 characters";
+				ok = false;
+
+			}
+			if (confirmpassword.value == ""){
+				confirmpassword.style.border = "1px solid red";
+				confirmpassword_error.textContent = "You can't leave this empty";
+				ok = false;
+			}
+			if (password.value != confirmpassword.value){
+				confirmpassword.style.border = "1px solid red";
+				confirmpassword_error.textContent = "These passwords don't match. Try again?"
+				ok = false;
+			}
+
+			return ok;
+
+    }
+
+    function Verify() {
+
+			if (username.value != "") {
+				username.style.borderColor = "";
+				name_error.textContent = "";
+
+			}
+
+			if (email.value != ""){
+				email.style.border = "";
+				email_error.textContent = "";
+
+			}
+			if (password.value != ""){
+				password.style.border = "";
+				password_error.textContent = "";
+
+			}
+			if (confirmpassword.value != ""){
+				confirmpassword.style.border = "";
+				confirmpassword_error.textContent = "";
+
+			}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+		$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+		});
+		
+		$(function () {
+		$('[data-toggle="popover"]').popover({
+		container: 'body'
+		});
+		});
+		
+		$('.carousel').carousel({
+		interval: 2000
+		});
+
+
+    	$(document).on('click', '#delete', function(){
+    	return confirm('Are you sure you want to delete this?');
+		});
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+<title>{% block title %}Top Games | {{block.super}}{% endblock %}</title>
+{% block content %}
+
+<img class="front_img" src="/static/images/Untitled-1.jpg">
+
+{% for obj in object_list %}
+
+<div class="topgames" id="{{obj.title}}">
+    <img src="{{obj.imgs.url}}" alt="Thumbnail">
+     {% if user.is_staff and obj.owner == user %}
+     <form method="post" action="{% url 'topgames-update' slug=obj.slug %}">{% csrf_token %}
+        <button id="edit" type="submit"><img src="/static/images/buttons/edit.png"> </button>
+    </form>
+    <form method="post" action="{% url 'topgames-delete' slug=obj.slug %}">{% csrf_token %}
+        <button onclick="return confirm('Are you sure you want to delete this?')" id="delete" type="submit"><img src="/static/images/buttons/delete.png"> </button>
+    </form>
+
+    {% endif %}
+    <h3>{{obj.title}}</h3>
+    <output>{{obj.release_date}}</output><hr>
+    <p>{{obj.content}}</p>
+</div>
+
+{% endfor %}
+
+{% endblock %}

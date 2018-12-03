@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}Create Top Games Post | {{block.super}} {% endblock %}</title>
+{% block content %}
+
+{% if formerrors %}
+{{ errors }}
+{% endif %}
+<br>
+<br>
+{% if user.is_staff %}
+<div style="margin-top:100px;" class="review-form">
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+    <div id="title">
+        <label>Create Top Games Post</label>
+    </div>
+    <div class="field">
+        <h4>Title</h4>
+        <input type="text" name="title" value="{{object.title}}" required>
+    </div>
+    <div class="field">
+        <h4>Upload Image</h4>
+        <input id="file" type="file" name="imgs" value="{{topgames.imgs.url}}" required>
+    </div>
+    <div class="field">
+        <h4>Release Date</h4>
+        <input type="text" name="release_date" value="{{object.release_date}}" required>
+    </div>
+
+    <div class="field">
+        <h4>Content</h4>
+        <input type="text" name="content" value="{{form.content.initial}}" required>
+    </div>
+    <br>
+    <button class="btn btn-danger btn-sx" type="submit">Save</button>
+    <br>
+    <br>
+</form>
+</div>
+{% else %}
+<div style="height:360px;"><h1 style="text-align:center">You are not allowed to view this page</h1></div>
+{% endif %}
+<br>
+<br>
+
+{% endblock %}

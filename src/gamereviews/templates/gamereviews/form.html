@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}Create Review Post | {{block.super}} {% endblock %}</title>
+{% block content %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+
+{% if formerrors %}
+{{ errors }}
+{% endif %}
+
+
+<br>
+<br>
+{% if user.is_staff %}
+<div class="review-form">
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+    <div id="title">
+        <label>Create Review</label>
+    </div>
+    <div class="field">
+        <h4>Title</h4>
+        <input type="text" name="title" value="{{object.title}}" required>
+    </div>
+    <div class="field">
+        <h4>Upload Image</h4>
+        <input id="file" type="file" name="imgs" value="{{reviews.imgs.url}}" {%if not reviews.imgs.url %} required {% endif %}>
+    </div>
+
+    <div class="field">
+        <h4>Upload Gameplay Image</h4>
+        <input id="file" type="file" name="gameplay" value="{{reviews.gameplay.url}}" {%if not reviews.gameplay.url %} required {% endif %} >
+    </div>
+    <div class="field">
+        <h4>Info</h4>
+        <input type="text" name="info" value="{% if form.info.initial %}{{form.info.initial}}{% endif %}" required>
+    </div>
+
+    <div class="field">
+        <h4>Content</h4>
+        <textarea name="content" datatype="{{content}}" placeholder="Enter content with tags, eg..<h1>Hello</h1>">{% if form.content.initial %}{{form.content.initial}}{% endif %}</textarea>
+    </div>
+
+    <div class="field">
+        <h4>Category</h4>
+        <input type="text" name="category" value="{{object.category}}" required>
+    </div>
+
+    <div class="field">
+        <h4>Cpu</h4>
+        <input type="text" name="cpu" value="{{object.cpu}}" required>
+    </div>
+
+    <div class="field">
+        <h4>Gpu</h4>
+        <input type="text" name="gpu" value="{{object.gpu}}" required>
+    </div>
+
+    <div class="field">
+        <h4>Ram</h4>
+        <input type="text" name="ram" value="{{object.ram}}" required>
+    </div>
+
+    <div class="field">
+        <h4>Disk Space</h4>
+        <input type="text" name="space" value="{{object.space}}" required>
+    </div>
+
+    <div class="field">
+        <h4>Operating System</h4>
+        <input type="text" name="os" value="{{object.os}}" required>
+    </div>
+    <br>
+    <button class="btn btn-danger btn-sx" type="submit">Save</button>
+    <br>
+    <br>
+</form>
+</div>
+{% else %}
+<div style="height:360px;"><h1 style="text-align:center">You are not allowed to view this page</h1></div>
+{% endif %}
+<br>
+<br>
+
+
+{% endblock %}

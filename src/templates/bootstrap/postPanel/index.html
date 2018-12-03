@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dashboard</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/favicon-16x16.png">
+		<link rel="manifest" href="/static/images/favicons/manifest.json">
+		<link rel="mask-icon" href="/static/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="theme-color" content="#ffffff">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="/static/mystyle.css" />
+		<link rel="stylesheet" type="text/css" href="/static/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+		
+	</head>
+	<body>
+		
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <h4 class="navbar-brand text-white">Post Panel</h4>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link text-white active" href="{% url 'home' %}">Webiste</a>
+      <a class="nav-item nav-link text-white active" href="{% url 'news-create' %}">News</a>
+      <a class="nav-item nav-link text-white " href="{% url 'reviews-create' %}">Review</a>
+      <a class="nav-item nav-link text-white " href="{% url 'topgames-create' %}">Top Game</a>
+      <a class="nav-item nav-link text-white" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i> &nbsp;Logout</a>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+{% block content %}
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 		<div class="container">
+			<div class="row mt-3">
+			<div class="col-md-8" style="background:#fcfcfc">
+				<div class="card-header bg-info">
+					<h3 class="text-white">This is title<small style="color: #eee">&nbsp;&nbsp;as</small></h3>
+				</div>
+				<div class="card-block mt-1">
+				<div class="col-md-4 float-left " >
+						<img class="card-img" src="/static/images/bf1.jpg">
+				</div>
+				<div class="col-md-8 float-left card-text" >
+				<p class="text-justify">
+					Bacon ipsum dolor sit amet bresaola shoulder ribeye jerky tongue andouille kevin meatloaf fatback shank bacon turkey turducken spare ribs chuck. Porchetta prosciutto pork chop, jowl andouille tri-tip rump kielbasa. Capicola ground round cow, drumstick shankle turducken pastrami. Flank bresaola meatball doner short ribs beef ribs ham hock pancetta. Prosciutto chuck andouille, spare ribs pork loin turkey jowl pastrami landjaeger corned beef doner tail strip steak. Brisket rump shank, doner pork chop leberkas turducken tri-tip ribeye shoulder spare ribs.
+				</p>
+
+			</div>
+
+			</div>
+
+		</div>
+		</div>
+ -->
+
+
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>

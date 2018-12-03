@@ -1,0 +1,41 @@
+{% if user.is_staff %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Post Panel{% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+
+<div class="post-panel-container">
+        <aside class="post-panel-aside">
+            <a id="home" href="{% url 'home' %}"><button> Home</button></a>
+            <a id="news" onclick="load_newsPost()"><button> News</button></a>
+            <a id="review" onclick="load_reviewPost()"><button> Reviews</button></a>
+            <a id="topgames" onclick="load_topGamesPost()"><button> Top Games</button></a>
+        </aside>
+
+        <section id="section">
+            <header id="header">
+                <h2>&nbspPost Panel</h2>
+            </header>
+        </section>
+    </div>
+
+<script>
+ function load_newsPost() {
+            document.getElementById("section").innerHTML = '<object type="text/html" data="{% url 'news-create' %}"></object>';
+ }
+ function load_topGamesPost() {
+            document.getElementById("section").innerHTML = '<object type="text/html" data="{% url 'topgames-create' %}"></object>';
+ }
+ function load_reviewPost() {
+            document.getElementById("section").innerHTML = '<object type="text/html" data="{% url 'reviews-create' %}"></object>';
+ }
+</script>
+
+</body>
+</html>
+{% else %}
+<script>alert('only staff is allowed to view this page');</script>
+{% endif %}
